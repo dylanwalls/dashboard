@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Viewer</title>
+</head>
+<body>
+    <h1>Payments</h1>
+    <ul id="payment-list"></ul>
+
+    <script>
+        // Function to fetch and display payments
+        async function fetchPayments() {
+            try {
+                const response = await fetch('/payments'); // Replace with your API endpoint
+                const data = await response.json();
+
+                const paymentList = document.getElementById('payment-list');
+
+                data.forEach(payment => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Payment ID: ${payment.PaymentID}, Amount: ${payment.Amount}, Date: ${payment.PaymentDate}`;
+                    paymentList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching payments:', error);
+            }
+        }
+
+        // Fetch and display payments when the page loads
+        window.addEventListener('load', fetchPayments);
+    </script>
+</body>
+</html>
